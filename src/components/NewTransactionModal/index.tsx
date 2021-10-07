@@ -4,6 +4,7 @@ import outcomeImg from '../../assets/outcome.svg';
 import { Container, RadioBox, TransactionTypeContainer } from '../NewTransactionModal/styles'
 import closeImg from '../../assets/close.svg';
 import { FormEvent, useState } from 'react';
+import { api } from '../../services/api';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -19,12 +20,14 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();  // modo de prevenir o comportamento do formulário para não tentar redirecionar a página, como é feito no html
-    console.log({
+    const data = ({
       title,
       value,
       category,
       type
     })
+
+    api.post('/transactions', data)
   }
 
   return (
