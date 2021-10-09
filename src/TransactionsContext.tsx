@@ -28,7 +28,7 @@ interface TransactionsProviderProps {
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  createTransaction:(transaction: TransactionInput) => void; 
+  createTransaction:(transaction: TransactionInput) => Promise<void>;// Colocar Promise<> porque ela é uma função asíncrona. 
 }
 
 export const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData);
@@ -42,8 +42,17 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       .then(response => setTransactions(response.data.transactions))
   }, []);
 
-  function createTransaction(transaction: TransactionInput) {
-    api.post('/transactions', transaction)
+  async function createTransaction(transactionInput: TransactionInput) {
+    const response = await api.post('/transactions', {
+      ...transactionInput,
+      createdAt: new Date()
+    })
+    const { transaction } = response.data;
+
+    setTransactions([ // conceito de imutabilidade
+      ...transactions, // mantenho o que existia
+      transaction, // e adiciono algo novo
+    ])
   }
 
   return (

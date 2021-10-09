@@ -30,7 +30,7 @@ export function TransactionsTable() {
                 </td>
                 :
                 <td className={transaction.type}>
-                  {new Intl.NumberFormat('pt-BR', {
+                  +{new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
                   }).format(transaction.amount)}

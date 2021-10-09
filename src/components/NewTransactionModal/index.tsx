@@ -17,19 +17,26 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const { createTransaction } = useContext(TransactionsContext); 
 
   const [title, setTitle] = useState('');
-  const [amount, setamount] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
   const [type, setType] = useState('deposit')
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();  // modo de prevenir o comportamento do formulário para não tentar redirecionar a página, como é feito no html
     
-    createTransaction({
+    await createTransaction({
       title,
       amount,
       category,
       type,
     })
+
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposity');
+
+    onRequestClose();
   }
 
   return (
@@ -59,7 +66,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           type="number"
           placeholder="Valor"
           value={amount}
-          onChange={event => setamount(Number(event.target.value))}
+          onChange={event => setAmount(Number(event.target.value))}
         />
 
         <TransactionTypeContainer>
