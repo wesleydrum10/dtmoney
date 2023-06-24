@@ -1,4 +1,4 @@
-import { FormEvent, useState, useContext } from 'react';
+import { FormEvent, useState } from 'react';
 import { Container, RadioBox, TransactionTypeContainer } from '../NewTransactionModal/styles'
 import { useTransactions } from '../../hooks/useTransactions';
 import Modal from 'react-modal';
@@ -21,7 +21,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const [type, setType] = useState('deposit')
 
   async function handleCreateNewTransaction(event: FormEvent) {
-    event.preventDefault();  // modo de prevenir o comportamento do formulário para não tentar redirecionar a página, como é feito no html
+    event.preventDefault();
     
     await createTransaction({
       title,

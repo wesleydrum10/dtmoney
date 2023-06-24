@@ -10,25 +10,15 @@ interface Transaction {
   createdAt: string;
 }
 
-//Posso usar uma interface...
-/* interface TransactionInput {
-  title: string;
-  amount: number;
-  type: string;
-  category: string;
-} */
-//ou um type Omit passando uma interface existente que contenha os mesmos dados, omitindo, conforme abaixo... id e createdAt
 type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>
-// ou um type Pick igual o Omit, só que devo passar os campos que quero usar.
-//type TransactionInput = Pick<Transaction, 'title' | 'amount' | 'type' | 'category'>
 
 interface TransactionsProviderProps {
-  children: ReactNode; // aceita qualquer tipo de conteudo válido para o React
+  children: ReactNode;
 }
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  createTransaction: (transaction: TransactionInput) => Promise<void>;// Colocar Promise<> porque ela é uma função asíncrona. 
+  createTransaction: (transaction: TransactionInput) => Promise<void>; 
 }
 
 const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData);
