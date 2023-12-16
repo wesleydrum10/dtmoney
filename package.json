@@ -2,7 +2,6 @@
   "name": "dtmoney",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/build", 
   "dependencies": {
     "axios": "^0.21.1",
     "miragejs": "^0.1.42",
